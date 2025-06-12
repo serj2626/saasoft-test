@@ -2,12 +2,36 @@ import { computed, ref } from 'vue'
 
 import { defineStore } from 'pinia'
 
-export const useRecordStore = defineStore('record', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+export interface IRecord {
+  label?: string
+  type: 'LDAP' | 'Локальная'
+  login: string
+  password: string
+}
 
-  return { count, doubleCount, increment }
+export const useRecordStore = defineStore('record', () => {
+  // STATE
+  const records = ref<IRecord[]>([
+    {
+      label: 'XXXX',
+      type: 'LDAP',
+      login: 'admin',
+      password: 'admin',
+    },
+    {
+      type: 'Локальная',
+      login: 'admin',
+      password: 'admin',
+    },
+    {
+      type: 'Локальная',
+      login: 'admin',
+      password: 'admin',
+    },
+  ])
+
+  // GETTERS
+  const getRecords = computed(() => records.value)
+
+  return { records, getRecords }
 })
