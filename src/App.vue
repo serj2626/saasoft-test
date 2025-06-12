@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<div></div>
+<div><button type="button" class="btn btn-primary">Primary</button></div>
 </template>
 
 <style scoped lang="scss">

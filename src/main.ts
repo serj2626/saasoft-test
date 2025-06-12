@@ -1,4 +1,5 @@
 import './assets/scss/main.scss'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import App from './App.vue'
 import { createApp } from 'vue'
@@ -6,6 +7,4 @@ import { createPinia } from 'pinia'
 
 const app = createApp(App)
 
-app
-  .use(createPinia())
-  .mount('#app')
+app.use(createPinia()).mount('#app')
