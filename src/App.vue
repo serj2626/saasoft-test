@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRecordStore } from './stores/record'
+import { storeToRefs } from 'pinia'
+const store = useRecordStore()
+
+const { records } = storeToRefs(store)
+</script>
 
 <template>
   <div class="app">
@@ -20,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="align-middle">
+            <tr v-for="record in records" :key="record.id" class="align-middle">
               <th scope="row">1</th>
               <td>
                 <select class="form-select form-select-sm" aria-label="Small select example">
@@ -30,8 +36,8 @@
                   <option value="3">Three</option>
                 </select>
               </td>
-              <td>@mdo</td>
-              <td>@mdo</td>
+              <td>{{ record.login }}</td>
+              <td>{{ record.password }}</td>
               <td>
                 <button class="btn fs-5">
                   <i class="bi bi-trash-fill"></i>
