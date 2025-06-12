@@ -1,4 +1,8 @@
-@use 'reset';
+@use './vars' as *;
+@use './mixins' as *;
+@use './reset' as *;
+
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
 
 * {
   &::-webkit-scrollbar {
@@ -8,21 +12,21 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $btn_blue;
+    background-color: $txt;
     border-radius: 60px;
   }
 
   &::-webkit-scrollbar-track {
-    background: $bg_gray;
+    background: $txt;
   }
 }
 
 body {
-  font-family: $ff_main, $ff_second, sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 125%;
-  background-color: $bg_white;
+  background-color: $white;
   color: $txt;
   overflow-x: hidden;
   box-sizing: border-box;
