@@ -5,11 +5,10 @@ import { defineStore } from 'pinia'
 export interface IRecord {
   id: number
   label?: string
-  type: 'LDAP' | 'Локальная'
+  type: string
   login: string
   password: string
 }
-
 export const useRecordStore = defineStore('record', () => {
   // STATE
   const records = ref<IRecord[]>([
@@ -34,8 +33,22 @@ export const useRecordStore = defineStore('record', () => {
     },
   ])
 
+  // ACTIONS
+
+  const deleteRecord = (id: number) => {
+    records.value = records.value.filter((r) => r.id !== id)
+  }
+
+  const addRecord = (record: IRecord) => {
+    records.value.push(record)
+  }
+
+  const getLenght = computed(() => {
+    return records.value.length
+  })
+
   // GETTERS
   const getRecords = computed(() => records.value)
 
-  return { records, getRecords }
+  return { records, getRecords, deleteRecord, addRecord, getLenght }
 })
