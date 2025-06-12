@@ -1,13 +1,32 @@
 <script setup lang="ts">
-import { useRecordStore } from './stores/record'
+import { reactive, ref } from 'vue'
+import { useRecordStore, type IRecord } from './stores/record'
 import { storeToRefs } from 'pinia'
 const store = useRecordStore()
 
-const { records } = storeToRefs(store)
+const { records, getLenght } = storeToRefs(store)
+
+const newRecord = reactive<IRecord>({
+  id: getLenght.value + 1,
+  label: '',
+  type: '',
+  login: '',
+  password: '',
+})
+
+// const addRecord = () => {
+//   records.value.push({
+//     id: Date.now(),
+//     type: '',
+//     login: '',
+//     password: '',
+//   })
+// }
 </script>
 
 <template>
-  <div class="app">
+  <div class="app bg-body-secondary">
+    {{ newRecord }}
     <div class="container">
       <div class="app min-vh-100 d-flex flex-column justify-content-center">
         <div class="d-flex flex-row align-items-center gap-3">
@@ -15,7 +34,7 @@ const { records } = storeToRefs(store)
           <button type="button" class="btn btn-outline-secondary">+</button>
         </div>
 
-        <table class="table table-striped mt-5">
+        <table class="table shadow-sm p-3 mt-5 rounded-5">
           <thead>
             <tr>
               <th scope="col">Метки</th>
@@ -29,51 +48,25 @@ const { records } = storeToRefs(store)
             <tr v-for="record in records" :key="record.id" class="align-middle">
               <th scope="row">1</th>
               <td>
-                <select class="form-select form-select-sm" aria-label="Small select example">
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select
+                  v-model="newRecord.type"
+                  class="form-select form-select-sm"
+                  aria-label="Small select example"
+                >
+                  <option value="LDAP">LDAP</option>
+                  <option value="Локальная">Локальная</option>
                 </select>
               </td>
-              <td>{{ record.login }}</td>
-              <td>{{ record.password }}</td>
               <td>
-                <button class="btn fs-5">
-                  <i class="bi bi-trash-fill"></i>
-                </button>
+                <input v-model="newRecord.login" type="text" class="form-control form-control-md" />
               </td>
-            </tr>
-            <tr class="align-middle">
-              <th scope="row">2</th>
               <td>
-                <select class="form-select form-select-sm" aria-label="Small select example">
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                <input
+                  v-model="newRecord.password"
+                  type="password"
+                  class="form-control form-control-md"
+                />
               </td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>
-                <button class="btn fs-5">
-                  <i class="bi bi-trash-fill"></i>
-                </button>
-              </td>
-            </tr>
-            <tr class="align-middle">
-              <th scope="row">3</th>
-              <td>
-                <select class="form-select form-select-sm" aria-label="Small select example">
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </td>
-              <td>Doe</td>
-              <td>@social</td>
               <td>
                 <button class="btn fs-5">
                   <i class="bi bi-trash-fill"></i>
